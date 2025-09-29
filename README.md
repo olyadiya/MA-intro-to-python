@@ -1,3 +1,3 @@
 # MA-intro-to-python
 # Ипатова Ольга Юрьевна
-https://pin.it/i/7rsHTG0jL/ 
+https://assets.pinterest.com/ext/embed.html?id=846747167482239155
