@@ -1,0 +1,162 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMRJOiTknKp/0i2U+Ft9W95",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/olyadiya/MA-intro-to-python/blob/main/end-of-first-term-hw\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ht73hiHCfosj",
+        "outputId": "e59d42b2-9556-4d01-8228-673a3b2e28ea"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['100 руб', '$50', '75.50 евро', '200₽']\n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "text = \"Цены: 100 руб, $50, 75.50 евро, 200₽, 300\"\n",
+        "# Задача: Найти все цены с валютами (руб, $, евро, ₽)\n",
+        "# Ожидаемый результат: ['100 руб', '$50', '75.50 евро', '200₽']\n",
+        "currencies = r'\\d+(?:\\.\\d+)?\\s*(?:руб|евро)|[$₽]\\d+(?:\\.\\d+)?|\\d+(?:\\.\\d+)?\\s*[₽]'\n",
+        "result = re.findall(currencies, text)\n",
+        "print(result)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import re\n",
+        "html = \"<div>Текст <b>жирный</b> и <i>курсивный</i></div>\"\n",
+        "# Задача: Удалить все HTML-теги, оставив только текст\n",
+        "# Ожидаемый результат: \"Текст жирный и курсивный\"\n",
+        "clear_text = re.sub(r'<[^>]+>', '', html)\n",
+        "print(clear_text)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "zEkhVDnyfrnL",
+        "outputId": "4e957b52-7c54-4ac1-bd26-30a55e725e53"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Текст жирный и курсивный\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "text = \"Версии: Python 3.9, Java 17.0.1, Node.js v18.15.0, проект v1.2.3.4\"\n",
+        "# Задача: Найти все номера версий (числа с точками)\n",
+        "# Ожидаемый результат: ['3.9', '17.0.1', '18.15.0', '1.2.3.4']\n",
+        "versions = re.findall(r'\\d+(?:\\.\\d+)+', text)\n",
+        "print(versions)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZmxmCjxVik54",
+        "outputId": "1645c81e-e076-4799-e82e-7e23c6072405"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['3.9', '17.0.1', '18.15.0', '1.2.3.4']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "complex_text = \"\"\"\n",
+        "Клиент Иван Иванов (ivan@mail.com, +7-912-345-67-89)\n",
+        "заказал товар #12345 за 1,500.50 руб.\n",
+        "Статус: ВЫПОЛНЕНО. Версия заказа v2.1.5.\n",
+        "Сайт: https://store.com/order/12345\n",
+        "\"\"\"\n",
+        "# Задачи:\n",
+        "# 1. Найти email и телефон\n",
+        "# 2. Найти номер заказа (#12345)\n",
+        "# 3. Найти цену (1,500.50 руб)\n",
+        "# 4. Найти версию заказа (v2.1.5)\n",
+        "\n",
+        "mail = re.findall(r'\\b[\\w.-]+@[\\w.-]+\\.\\w+\\b', complex_text)\n",
+        "phone = re.findall(r'[\\+7|8][-\\s]?\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2}', complex_text)\n",
+        "order = re.findall(r'#\\d+', complex_text)\n",
+        "price = re.findall(r'\\d{1,3}(?:,\\d{3})*\\.\\d+\\s*руб', complex_text)\n",
+        "version = re.findall(r'v\\d+(?:\\.\\d+)+', complex_text)\n",
+        "print(\"Телефон:\", phone[0])\n",
+        "print(\"Email:\", mail[0])\n",
+        "print(\"Номер заказа:\", order[0])\n",
+        "print(\"Цена:\", price[0])\n",
+        "print(\"Версия:\", version[0])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "iNb8A0nJmBMN",
+        "outputId": "69cceec7-07c4-4438-95d6-8b431239c3c3"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Телефон: 7-912-345-67-89\n",
+            "Email: ivan@mail.com\n",
+            "Номер заказа: #12345\n",
+            "Цена: 1,500.50 руб\n",
+            "Версия: v2.1.5\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
